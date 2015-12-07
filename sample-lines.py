@@ -38,7 +38,7 @@ with open(output, 'w') as output:
     with open(input) as input:
         for i, l in enumerate(input):
             if i in lineNums:
-                l = l.decode('unicode-escape')
+                # l = l.decode('unicode-escape')
                 # Handles weird occasional unicode newlines that are created in parsing
                 new = ''.join(l.splitlines()) + '\n'
                 output.write(new)
