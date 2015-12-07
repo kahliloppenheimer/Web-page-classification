@@ -69,8 +69,6 @@ with open (input) as f:
             except urllib2.HTTPError, e:
                 numErrors += 1
                 print 'SKIPPED (HTTPError):', doc['url']
-            # except Exception as e:
-                # raise e
-                # numErrors += 1
-                # doc['html'] = 'ERROR'
-                # print 'other error'
+            except Exception as e:
+                numErrors += 1
+                print 'other error'
