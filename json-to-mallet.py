@@ -11,7 +11,11 @@ import os
 # conversion from JSON to mallet input was succesful, false otherwise
 def printObj(out, obj, feature_field):
     name = obj['url']
-    label = obj['topic'].split('/')[1]
+    label = obj['topic'].split('/')
+    # Weird cases where there is no label like top/*
+    if(len(label) < 2):
+        return False
+    label = label[1]
     features = obj[feature_field]
     if (name and label and features):
         out.write(name + '\t' + label + '\t' + features + '\n')
@@ -41,6 +45,7 @@ else:
         with open(input) as f:
             for l in f:
                 total += 1
+                print(total)
                 obj = json.loads(l)
                 if(printObj(out, obj, feature_field)):
                     sCount += 1

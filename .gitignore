@@ -1,3 +1,6 @@
 *.pyc
 *.json
+*.txt
+*.data
+*.mallet
 mallet*
