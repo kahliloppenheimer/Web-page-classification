@@ -1,3 +1,4 @@
+#!/bin/bash
 bin/mallet prune --input input/dmoz50p.mallet --output input/ig-p-1.mallet --prune-infogain 1
 bin/mallet prune --input input/dmoz50d.mallet --output input/ig-d-1.mallet --prune-infogain 1
 
