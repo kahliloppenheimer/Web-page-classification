@@ -23,7 +23,7 @@ def printObj(dir, obj, feature_field):
         if not os.path.isdir(instance_path):
             os.makedirs(instance_path)
         with open(os.path.join(instance_path, name), 'w') as f:
-            f.write(features)
+            f.write(features.encode('utf8'))
         return True
     else:
         return False
