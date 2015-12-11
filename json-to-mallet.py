@@ -13,6 +13,7 @@ def printObj(dir, obj, feature_field):
     # Since we're going to use these as file names, we can't have slashes
     name = obj['url'].replace('/', '')
     label = obj['topic'].split('/')
+    label = label.split('?')[0] if label.contains('?') else label
     # Weird cases where there is no label like top/*
     if(len(label) < 2):
         return False
