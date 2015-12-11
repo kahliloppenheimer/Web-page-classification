@@ -12,12 +12,12 @@ import os
 def printObj(dir, obj, feature_field):
     # Since we're going to use these as file names, we can't have slashes
     name = obj['url'].replace('/', '')
+    name = name.split('?')[0] if '?' in name else name
     label = obj['topic'].split('/')
     # Weird cases where there is no label like top/*
     if(len(label) < 2):
         return False
     label = label[1]
-    label = label.split('?')[0] if '?' in label else label
     features = obj[feature_field]
     instance_path = os.path.join(dir, label)
     if (name and label and features):
