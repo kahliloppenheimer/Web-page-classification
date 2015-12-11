@@ -24,16 +24,16 @@ def file_len(fname):
 # Returns set of n line #s randomly selected from the file
 def getRandLineNums(file, n):
     totalLines = np.arange(file_len(input))
-    linesToPull = np.random.choice(totalLines, SAMPLE_SIZE, False)
+    linesToPull = np.random.choice(totalLines, n, False)
     return set(linesToPull)
 
 # Grab command line args (input, output, size)
 input = sys.argv[1]
 output = sys.argv[2]
-SAMPLE_SIZE = int(sys.argv[3])
+n = sys.argv[3] if sys.argv.length > 3 else file_len(input)
 
 # Pull out SAMPLE_SIZE random lines from the input file and print to putput file
-lineNums = getRandLineNums(input, SAMPLE_SIZE)
+lineNums = getRandLineNums(input, n)
 with open(output, 'w') as output:
     with open(input) as input:
         for i, l in enumerate(input):

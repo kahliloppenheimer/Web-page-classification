@@ -1,10 +1,27 @@
+# python curlData.py input_file output_dir num_lines
+from __future__ import print_function
+from bs4 import BeautifulSoup
 import json
 import sys
 import os
 import urllib2
-from bs4 import BeautifulSoup
 import socket
+import numpy as np
+import codecs
 
+# Setup unicode encoding to work
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+
+# Returns set of n line #s randomly selected from the file
+def getRandLineNums(file, n):
+    totalLines = np.arange(getNumLines(input))
+    linesToPull = np.random.choice(totalLines, n, False)
+    return set(linesToPull)
+
+# Returns the # of lines of the given file
 def getNumLines(file_name):
     count = 0
     with open(file_name) as f:
@@ -12,6 +29,7 @@ def getNumLines(file_name):
             count += 1
     return count
 
+# Parses all scripts/CSS/html tags out of html
 # Taken from http://stackoverflow.com/questions/22799990/beatifulsoup4-get-text-still-has-javascript
 def cleanHtml(html):
     soup = BeautifulSoup(html, 'html.parser')
@@ -55,36 +73,32 @@ def printObj(dir, obj, feature_field):
     else:
         return False
 
+# Input JSON file
 input = sys.argv[1]
-output_dir = sys.argv[2]
-
 numLines = getNumLines(input)
 numErrors = 0
+# Output directory with input for mallet
+output_dir = sys.argv[2]
+# Number of lines from JSON to randomly sample (defaults to all lines)
+n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
+lineNums = getRandLineNums(input, n)
+currLine = 0
 
 with open (input) as f:
     for i, line in enumerate(f):
-        if ((i + 1) % 50 < .00001):
-            print 100 * float(i + 1) / numLines, '% done', 'nErrors:', numErrors, '(', 100 * float(numErrors) / i, ')%'
-        # First call to loads removes escape characters but does not turn
-        # into dict for strange reason
-        doc = json.loads(line)
-        if (type(doc) == type(u'foo')):
-            doc = json.loads(doc)
-        try:
-            html = unicode(urllib2.urlopen(doc['url'], timeout = 5).read(), errors='ignore')
-            doc['html'] = cleanHtml(html)
-            printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
-            printObj(os.path.join(output_dir, 'html'), doc, 'html')
-            print 'line', i + 1, '(', 100 * float(i) / numLines, '%)'
-        except socket.timeout, e:
-            numErrors += 1
-            print 'URL timeout:', doc['url']
-        except urllib2.URLError, e:
-            numErrors += 1
-            print 'URL timeout:', doc['url']
-        except urllib2.HTTPError, e:
-            numErrors += 1
-            print 'SKIPPED (HTTPError):', doc['url']
-        except Exception as e:
-            numErrors += 1
-            print e
+        if (i in lineNums):
+            currLine += 1
+            if ((currLine) % 50 == 0):
+                print(100 * float(currLine) / n, '% done', 'nErrors:', numErrors, '(', 100 * float(numErrors) / currLine, ')%')
+            doc = json.loads(line)
+            if (type(doc) == type(u'foo')):
+                doc = json.loads(doc)
+            try:
+                html = unicode(urllib2.urlopen(doc['url'], timeout = 5).read(), errors='ignore')
+                doc['html'] = cleanHtml(html)
+                printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
+                printObj(os.path.join(output_dir, 'html'), doc, 'html')
+                print ('line', currLine, '(', 100 * float(currLine) / n, '%)')
+            except Exception as e:
+                numErrors += 1
+                print (e)
