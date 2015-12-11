@@ -31,7 +31,6 @@ def printObj(dir, obj, feature_field):
 
 input = sys.argv[1]
 output_dir = sys.argv[2]
-feature_field = sys.argv[3]
 
 sCount = 0
 total = 0
@@ -42,7 +41,8 @@ if (os.path.isdir(input)):
             for l in f:
                 total += 1
                 obj = json.loads(l)
-                if(printObj(output_dir, obj, feature_field)):
+                if(printObj(os.path.join(output_dir, 'desc'), obj, 'd:Description') and
+                   printObj(os.path.join(output_dir, 'html'), obj, 'html')):
                     sCount += 1
 
 else:
