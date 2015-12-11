@@ -17,7 +17,7 @@ def printObj(dir, obj, feature_field):
     if(len(label) < 2):
         return False
     label = label[1]
-    label = label.split('?')[0] if label.contains('?') else label
+    label = label.split('?')[0] if '?' in label else label
     features = obj[feature_field]
     instance_path = os.path.join(dir, label)
     if (name and label and features):
