@@ -29,7 +29,6 @@ class Document(object):
         self.data = data
         self.label = label
         self.source = source
-        self.feature_vector = []
 
     def __repr__(self):
         return ("<%s: %s>" % (self.label, self.abbrev()) if self.label else
@@ -41,7 +40,7 @@ class Document(object):
 
     def features(self):
         """A list of features that characterize this document."""
-        return [self.data]
+        return self.data
 
 class StrippedText(Document):
     """An HTML document with the text stripped right from the page"""

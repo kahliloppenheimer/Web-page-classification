@@ -34,16 +34,17 @@ def printObj(dir, obj, feature_field):
     name = obj['url'].replace('/', '')
     label = obj['topic'].split('/')
     # Weird cases where there is no label like top/*
-    if(len(label) < 2 or label not in LABELS):
+    if(len(label) < 2 or label[1] not in LABELS):
         return False
     label = label[1]
     features = obj[feature_field]
+    print features
     instance_path = os.path.join(dir, label)
     if (name and label and features):
         if not os.path.isdir(instance_path):
             os.makedirs(instance_path)
         with open(os.path.join(instance_path, name), 'w') as f:
-            f.write(features.encode('utf8'))
+            f.write(features)
         return True
     else:
         return False
