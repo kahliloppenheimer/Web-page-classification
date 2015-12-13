@@ -46,6 +46,7 @@ def printObj(dir, obj, feature_field):
             f.write(features)
         return True
     else:
+        print('HERE')
         return False
 
 # Input JSON file
