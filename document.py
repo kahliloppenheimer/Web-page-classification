@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from subprocess import call
+from subprocess import Popen, PIPE
 from urllib.request import urlopen
 
 
@@ -54,6 +54,9 @@ class StrippedText(Document):
 
 class Luhn(Document):
     def features(self, length = '20%'):
-        return call([ 'sumy', 'luhn', '--url=' + self.url, '--length=' + length]).replace('\n',' ')
+        summary = Popen(['sumy', 'luhn', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
+        summary.replace('\n', ' ')
+        print(summary)
+
 
 #class SummarizedPage(Document):
