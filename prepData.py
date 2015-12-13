@@ -78,4 +78,4 @@ with open (input) as f:
                 print ('line', currLine, '(', 100 * float(currLine) / n, '%)')
             except Exception as e:
                 numErrors += 1
-                raise (e)
+                print (e)
