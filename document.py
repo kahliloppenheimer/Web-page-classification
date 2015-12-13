@@ -57,37 +57,37 @@ class Luhn(Document):
         command = ' '.join(['sumy', 'luhn', '--url=' + self.url, '--length=' + length])
         print(command)
         summary = Popen(['sumy', 'luhn', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Edmundson(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'edmundson', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Lsa(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'lsa', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Textrank(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'text-rank', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Lexrank(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'lex-rank', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Sumbasic(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'sum-basic', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 class Kl(Document):
     def features(self, length = '20%'):
         summary = Popen(['sumy', 'kl', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        summary.decode().replace('\n', ' ')
+        return summary.decode().replace('\n', ' ')
 
 
 #class SummarizedPage(Document):
