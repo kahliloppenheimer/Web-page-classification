@@ -57,7 +57,7 @@ output_dir = sys.argv[2]
 # Number of lines from JSON to randomly sample (defaults to all lines)
 n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
 # Type of document to parse HTML as (defaults to StrippedText)
-document_type_str = eval(sys.argv[4]) if len(sys.argv) > 4 else Document.StrippedText
+document_type_str = eval(sys.argv[4]) if len(sys.argv) > 4 else document.StrippedText
 lineNums = getRandLineNums(input, n)
 currLine = 0
 
