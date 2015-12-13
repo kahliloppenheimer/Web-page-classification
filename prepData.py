@@ -1,5 +1,4 @@
 # python curlData.py input_file output_dir num_lines document_type
-from __future__ import print_function
 from urllib.request import urlopen
 import document
 import json
@@ -8,12 +7,6 @@ import os
 import socket
 import numpy as np
 import codecs
-
-# Setup unicode encoding to work
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 
 # Possible labels for dmoz dataset
 LABELS = ['Arts', 'Computers', 'Health', 'News', 'Recreation', 'Regional', 'Shopping', 'Sports', 'World', 'Business', 'Games', 'Home', 'Reference', 'Science', 'Society']
