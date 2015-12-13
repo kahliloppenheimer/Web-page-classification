@@ -1,6 +1,6 @@
 # python curlData.py input_file output_dir num_lines
 from __future__ import print_function
-from bs4 import BeautifulSoup
+import Document
 import json
 import sys
 import os
@@ -14,6 +14,9 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+
+# Possible labels for dmoz dataset
+LABELS = ['Arts', 'Computers', 'Health', 'News', 'Recreation', 'Regional', 'Shopping', 'Sports', 'World', 'Business', 'Games', 'Home', 'Reference', 'Science', 'Society']
 
 # Returns set of n line #s randomly selected from the file
 def getRandLineNums(file, n):
@@ -29,27 +32,6 @@ def getNumLines(file_name):
             count += 1
     return count
 
-# Parses all scripts/CSS/html tags out of html
-# Taken from http://stackoverflow.com/questions/22799990/beatifulsoup4-get-text-still-has-javascript
-def cleanHtml(html):
-    soup = BeautifulSoup(html, 'html.parser')
-
-    # kill all script and style elements
-    for script in soup(["script", "style"]):
-        script.extract()    # rip it out
-
-    # get text
-    text = soup.get_text()
-
-    # break into lines and remove leading and trailing space on each
-    lines = (line.strip() for line in text.splitlines())
-    # break multi-headlines into a line each
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # drop blank lines
-    text = ' '.join(chunk for chunk in chunks if chunk)
-    return text
-
-
 # Prints out the given json object to the output directory
 # with the features as obj[feature_field], file name as obj['url'],
 # and subdirectory (label) as obj['topic']. Returns True if
@@ -59,7 +41,7 @@ def printObj(dir, obj, feature_field):
     name = obj['url'].replace('/', '')
     label = obj['topic'].split('/')
     # Weird cases where there is no label like top/*
-    if(len(label) < 2):
+    if(len(label) < 2 || label not in LABELS):
         return False
     label = label[1]
     features = obj[feature_field]
@@ -81,6 +63,8 @@ numErrors = 0
 output_dir = sys.argv[2]
 # Number of lines from JSON to randomly sample (defaults to all lines)
 n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
+# Type of document to parse HTML as (defaults to StrippedText)
+document_type_str = eval(sys.argv[4]) if len(sys.argv) > 4 else Document.StrippedText
 lineNums = getRandLineNums(input, n)
 currLine = 0
 
@@ -95,7 +79,7 @@ with open (input) as f:
                 doc = json.loads(doc)
             try:
                 html = unicode(urllib2.urlopen(doc['url'], timeout = 5).read(), errors='ignore')
-                doc['html'] = cleanHtml(html)
+                doc['html'] = new document_type(html)
                 printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
                 printObj(os.path.join(output_dir, 'html'), doc, 'html')
                 print ('line', currLine, '(', 100 * float(currLine) / n, '%)')
