@@ -56,7 +56,7 @@ class Luhn(Document):
     def features(self, length = '20%'):
         cmd = 'sumy luhn --url=' + self.url + ' --length=' + length
         summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
-        return summary.decode().replace('\n', ' ')
+        return summary.replace('\n', ' ')
 
 class Edmundson(Document):
     def features(self, length = '20%'):
