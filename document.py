@@ -54,6 +54,8 @@ class StrippedText(Document):
 
 class Luhn(Document):
     def features(self, length = '20%'):
+        command = ' '.join(['sumy', 'luhn', '--url=' + self.url, '--length=' + length])
+        print(command)
         summary = Popen(['sumy', 'luhn', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
         summary.decode().replace('\n', ' ')
 
