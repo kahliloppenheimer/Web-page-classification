@@ -1,10 +1,10 @@
-# python curlData.py input_file output_dir num_lines
+# python curlData.py input_file output_dir num_lines document_type
 from __future__ import print_function
+from urllib.request import urlopen
 import Document
 import json
 import sys
 import os
-import urllib2
 import socket
 import numpy as np
 import codecs
@@ -78,7 +78,7 @@ with open (input) as f:
             if (type(doc) == type(u'foo')):
                 doc = json.loads(doc)
             try:
-                html = unicode(urllib2.urlopen(doc['url'], timeout = 5).read(), errors='ignore')
+                html = unicode(urlopen(doc['url'], timeout = 5).read(), errors='ignore')
                 doc['html'] = document_type(html).features()
                 printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
                 printObj(os.path.join(output_dir, 'html'), doc, 'html')
