@@ -1,4 +1,7 @@
 from bs4 import BeautifulSoup
+from subprocess import call
+from urllib.request import urlopen
+
 
 # Parses all scripts/CSS/html tags out of html
 # Taken from http://stackoverflow.com/questions/22799990/beatifulsoup4-get-text-still-has-javascript
@@ -21,12 +24,12 @@ def cleanHtml(html):
     return text
 
 class Document(object):
-    """A document completely characterized by its features."""
+    """A document to represent featurized HTML"""
 
     max_display_data = 10 # limit for data abbreviation
 
-    def __init__(self, data, label=None, source=None):
-        self.data = data
+    def __init__(self, url, label=None, source=None):
+        self.url = url
         self.label = label
         self.source = source
 
@@ -46,11 +49,11 @@ class StrippedText(Document):
     """An HTML document with the text stripped right from the page"""
 
     def features(self):
-        return cleanHtml(self.data)
+        html = urlopen(doc['url'], timeout = 5).read()
+        return cleanHtml(html)
 
-class Luhn(Document):
-
-    def features(self):
-        return 'foo'
+class luhn(Document):
+    def features(self, length = '20%'):
+        return call([ 'sumy', 'luhn', '--url=' + self.url, '--length=' + length]).replace('\n',' ')
 
 #class SummarizedPage(Document):

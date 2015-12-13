@@ -71,8 +71,7 @@ with open (input) as f:
             if (type(doc) == type(u'foo')):
                 doc = json.loads(doc)
             try:
-                html = urlopen(doc['url'], timeout = 5).read()
-                doc['html'] = document_type(html).features()
+                doc['html'] = document_type(doc['url']).features()
                 printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
                 printObj(os.path.join(output_dir, 'html'), doc, 'html')
                 print ('line', currLine, '(', 100 * float(currLine) / n, '%)')
