@@ -41,7 +41,7 @@ def printObj(dir, obj, feature_field):
     name = obj['url'].replace('/', '')
     label = obj['topic'].split('/')
     # Weird cases where there is no label like top/*
-    if(len(label) < 2 || label not in LABELS):
+    if(len(label) < 2 or label not in LABELS):
         return False
     label = label[1]
     features = obj[feature_field]
