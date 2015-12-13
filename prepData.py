@@ -55,9 +55,10 @@ numErrors = 0
 # Output directory with input for mallet
 output_dir = sys.argv[2]
 # Number of lines from JSON to randomly sample (defaults to all lines)
-n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
+# n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
+n = numLines
 # Type of document to parse HTML as (defaults to StrippedText)
-document_type = eval('document.' + sys.argv[4].replace('-', '').capitalize()) if len(sys.argv) > 4 else document.StrippedText
+document_type = eval('document.' + sys.argv[3].replace('-', '').capitalize()) if len(sys.argv) > 3 else document.StrippedText
 lineNums = getRandLineNums(input, n)
 currLine = 0
 
