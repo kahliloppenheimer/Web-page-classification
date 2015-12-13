@@ -79,7 +79,7 @@ with open (input) as f:
                 doc = json.loads(doc)
             try:
                 html = unicode(urllib2.urlopen(doc['url'], timeout = 5).read(), errors='ignore')
-                doc['html'] = document_type(html)
+                doc['html'] = document_type(html).features()
                 printObj(os.path.join(output_dir, 'desc'), doc, 'd:Description')
                 printObj(os.path.join(output_dir, 'html'), doc, 'html')
                 print ('line', currLine, '(', 100 * float(currLine) / n, '%)')
