@@ -60,33 +60,36 @@ class Luhn(Document):
 
 class Edmundson(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'edmundson', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
+        cmd = 'sumy edmundson --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
 
 class Lsa(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'lsa', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
+        cmd = 'sumy lsa --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
 
 class Textrank(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'text-rank', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
+        cmd = 'sumy text-rank --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
 
 class Lexrank(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'lex-rank', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
+        cmd = 'sumy lex-rank --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
 
 class Sumbasic(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'sum-basic', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
+        cmd = 'sumy sum-basic --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
 
 class Kl(Document):
     def features(self, length = '20%'):
-        summary = Popen(['sumy', 'kl', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
-        return summary.decode().replace('\n', ' ')
-
-
-#class SummarizedPage(Document):
+        cmd = 'sumy kl --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        return summary.replace('\n', ' ')
