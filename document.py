@@ -48,4 +48,9 @@ class StrippedText(Document):
     def features(self):
         return cleanHtml(self.data)
 
+class Luhn(Document):
+
+    def features(self):
+        return 'foo'
+
 #class SummarizedPage(Document):

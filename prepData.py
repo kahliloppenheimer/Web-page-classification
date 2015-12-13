@@ -38,7 +38,6 @@ def printObj(dir, obj, feature_field):
         return False
     label = label[1]
     features = obj[feature_field]
-    print(features)
     instance_path = os.path.join(dir, label)
     if (name and label and features):
         if not os.path.isdir(instance_path):
@@ -58,7 +57,7 @@ output_dir = sys.argv[2]
 # Number of lines from JSON to randomly sample (defaults to all lines)
 n = int(sys.argv[3]) if len(sys.argv) > 3 else numLines
 # Type of document to parse HTML as (defaults to StrippedText)
-document_type = eval(sys.argv[4]) if len(sys.argv) > 4 else document.StrippedText
+document_type = eval('document.' + sys.argv[4]) if len(sys.argv) > 4 else document.StrippedText
 lineNums = getRandLineNums(input, n)
 currLine = 0
 
