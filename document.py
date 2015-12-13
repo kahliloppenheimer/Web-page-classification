@@ -55,41 +55,41 @@ class StrippedText(Document):
 class Luhn(Document):
     def features(self, length = '20%'):
         cmd = 'sumy luhn --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Edmundson(Document):
     def features(self, length = '20%'):
         cmd = 'sumy edmundson --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Lsa(Document):
     def features(self, length = '20%'):
         cmd = 'sumy lsa --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Textrank(Document):
     def features(self, length = '20%'):
         cmd = 'sumy text-rank --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Lexrank(Document):
     def features(self, length = '20%'):
         cmd = 'sumy lex-rank --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Sumbasic(Document):
     def features(self, length = '20%'):
         cmd = 'sumy sum-basic --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
 
 class Kl(Document):
     def features(self, length = '20%'):
         cmd = 'sumy kl --url=' + self.url + ' --length=' + length
-        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=10)
         return summary.replace('\n', ' ')
