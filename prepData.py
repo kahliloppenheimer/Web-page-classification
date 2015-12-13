@@ -1,7 +1,7 @@
 # python curlData.py input_file output_dir num_lines document_type
 from __future__ import print_function
 from urllib.request import urlopen
-import Document
+import document
 import json
 import sys
 import os
