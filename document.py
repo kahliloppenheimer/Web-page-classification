@@ -52,7 +52,7 @@ class StrippedText(Document):
         html = urlopen(doc['url'], timeout = 5).read()
         return cleanHtml(html)
 
-class luhn(Document):
+class Luhn(Document):
     def features(self, length = '20%'):
         return call([ 'sumy', 'luhn', '--url=' + self.url, '--length=' + length]).replace('\n',' ')
 
