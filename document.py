@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
-from subprocess import Popen, PIPE
 from urllib.request import urlopen
+import subprocess
 
 
 # Parses all scripts/CSS/html tags out of html
@@ -54,9 +54,8 @@ class StrippedText(Document):
 
 class Luhn(Document):
     def features(self, length = '20%'):
-        command = ' '.join(['sumy', 'luhn', '--url=' + self.url, '--length=' + length])
-        print(command)
-        summary = Popen(['sumy', 'luhn', '--url=' + self.url, '--length=' + length], stdout=PIPE).stdout.read()
+        cmd = 'sumy luhn --url=' + self.url + ' --length=' + length
+        summary = subprocess.check_output(cmd, shell=True, universal_newlines=True, timeout=5)
         return summary.decode().replace('\n', ' ')
 
 class Edmundson(Document):
