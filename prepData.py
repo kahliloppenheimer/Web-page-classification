@@ -38,7 +38,7 @@ def printObj(dir, obj, feature_field):
         return False
     label = label[1]
     features = obj[feature_field]
-    print features
+    print(features)
     instance_path = os.path.join(dir, label)
     if (name and label and features):
         if not os.path.isdir(instance_path):
