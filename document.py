@@ -49,7 +49,7 @@ class StrippedText(Document):
     """An HTML document with the text stripped right from the page"""
 
     def features(self):
-        html = urlopen(doc['url'], timeout = 5).read()
+        html = urlopen(self.url, timeout = 5).read()
         return cleanHtml(html)
 
 class Luhn(Document):
