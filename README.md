@@ -1,4 +1,7 @@
 # Topical Web-page classification of the DMOZ Dataset
+
+### [Read the paper](paper.pdf)
+
 This repository contains all scripts associated with my research on topical Web-page classification. You can read the full paper describing the task, experiments, and results [here](paper.pdf).
 
 ## Abstract
